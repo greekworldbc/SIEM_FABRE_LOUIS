@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/apache/*.log
+  fields:
+    log_type: apache
+
+output.logstash:
+  hosts: ["logstash_host:5044"]
+  ssl.enabled: true
+  ssl.verification_mode: none
+
+output.elasticsearch:
+  hosts: ["elasticsearch_host:9200"]
+  ssl.enabled: true
+  ssl.verification_mode: none
+  index: "apache-%{+yyyy.MM.dd}"
+
